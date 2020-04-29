@@ -1,0 +1,80 @@
+Name : Roshan Baghwar
+Roll No. : IIT2017147
+
+Explanation;
+
+Note: I have used ANTLR v4 for writing the lexer grammars and parsers for syntax analysis of the given C code.\
+
+Running the Grammar;
+
+Note : Running the grammar requires installing Java (version 1.6 or higher) and antlr-4.7.1-complete.jar file (from ANTLR git repo).
+
+(Open the 'CopilerDesignAssignment__IIT2017147' folder and use the following commands;
+-> antlr4 syntaxGrammar.g4
+-> javac syntaxGrammar*.java
+Note : -> Running javac syntaxGrammar*.java will create 8 files, which includes the lexer, parse and other java files.
+       -> All the file names are based on the grammar file (syntaxGrammar.g4).
+
+
+**Checking the syntax by ANTLR v4 parser**
+
+(Run the following command to check syntax using grammar 'syntaxGrammar.g4' )
+	-> antlr4 syntaxGrammar.g4
+	-> javac syntaxGrammar*.java
+	-> grun syntaxGrammar check -tree
+		(enter code in stdin)
+	while(i<100){}
+	(press Control Z for EOF for Windows and Control D for Unix)
+	^Z
+	(output will be the parse tree)
+
+	Note : For GUI, use the following command;
+	-> antlr4 syntaxGrammar.g4
+	-> javac syntaxGrammar*.java
+	-> grun syntaxGrammar check -gui
+		(enter code in stdin)
+	while(i<100){}
+	(press Control Z for EOF for Windows and Control D for Unix)
+	^Z
+	(output will be the parse tree)
+
+The syntax analysis using ANTLR is done by;
+	-> creating grammar file (syntaxGrammar.g4)
+	-> importing source codes (sample C codes in 'sample_C_Codes' folder)
+	-> creating the listner (syntaxChecker.java)
+
+1) Creating a Grammar file
+	
+I have created the grammar file (syntaxGrammar.g4) to parse the basic looping statements in C language.
+The grammar has lexers defined based on ANTLR v4, that will be used in the later part of the code.
+The main fragmet is the 'looping' fragment. This fragment contains all the looping statements present in C language.
+The 'looping' fragment further has 3 fragments;
+	-> while_loop
+	-> do_while_loop
+	-> for_loop
+	for 'while', 'do-while' and 'for' loops respectively.
+
+In addition to that there are several 'helper' fragments such as 'expression' fragment, which is parses the expression present in the source code, BODY fragment for the body of the loop.
+COMMENT, var, atmo etc.
+
+2) Importing Source Codes
+
+Running the listner (syntaxChecker.java) file will ask for the path directory for the C code file.
+Note : The path directory should contain the full path of the file.
+Example : C:\Users\rosha\Downloads\Documents\Assignment\CopilerDesignAssignment__IIT2017147\sample_C_Codes\sampleCode1.txt
+The java.util.Scanner class is used to read the entire C file in String named 'fileContent', which is then used for the syntax analysis.
+
+The syntaxChecker.java class extends syntaxGrammarBaseListener class and the errors generated are stored in the ArrayList 'errors'.
+
+3) Creating the Listner
+
+The syntaxChecker.java class reads the C language source codes and uses the syntaxGrammarParser to parse the source codes.
+The syntaxGrammarBaseListener has several methods that are overridden, each one corresponding to a heading in the grammar file.
+
+
+4) REFERENCES
+
+https://github.com/antlr/antlr4/blob/4.8/doc/getting-started.md
+https://www.baeldung.com/java-antlr#1-prepare-a-grammar-file
+https://stackoverflow.com/questions/15701971/do-while-and-while-at-the-same-time-using-antlr
+
